@@ -254,6 +254,12 @@
         <beam number="2">continue</beam>
         <beam number="3">continue</beam>
         </note>
+      <direction placement="above">
+        <direction-type>
+          <words relative-y="10">kaboom</words>
+          </direction-type>
+        <staff>1</staff>
+        </direction>
       <note default-x="106.26" default-y="-15">
         <pitch>
           <step>C</step>
