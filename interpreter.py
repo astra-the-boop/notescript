@@ -33,10 +33,10 @@ def interpreter(filename):
             if current["type"] == "note" and current["pitch"].startswith("C"):
                 if previous["type"] == "text":
                     try:
-                        print(float(current["text"]))
+                        print(float(previous["text"]))
                     except ValueError:
-                        if current["text"].strip() in vars.keys():
-                            print(vars[current["text"].strip()])
+                        if previous["text"].strip() in vars.keys():
+                            print(vars[previous["text"].strip()])
                         else:
                             raise NameError
                 else:
@@ -48,17 +48,17 @@ def interpreter(filename):
 
                                 if data[i + j]["type"] == "note":
                                     break
-                            if data[i+j]["pitch"].startswith("G"):
+                            if "pitch" in data[i + j] and data[i+j]["pitch"].startswith("G"):
                                 k = 1
                                 while data[i+j+k]["type"] == "rest":
                                     if data[i+j+k]["type"] == "note":
                                         break
-                                if data[i+j+k]["pitch"][0:1] in ["A", "B"]:
-                                    math(data[i + j]["pitch"],
+                                if "pitch" in data[i+j+k] and data[i+j+k]["pitch"][0:1] in ["A", "B"]:
+                                    print(math(data[i + j]["pitch"],
                                         next["text"],
                                         data[i + 2]["pitch"],
                                         data[i+j+k-1]["text"],
-                                        data[i+j+k]["pitch"])
+                                        data[i+j+k]["pitch"]))
 
 
             if current["type"] == "repeatStart":
