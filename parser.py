@@ -4,7 +4,9 @@ def parse(filename):
     score = converter.parse(filename)
     output = []
 
-    for part in score.parts:
+    for idx, part in enumerate(score.parts):
+        if idx > 0:
+            break
         i = 1
         for measure in part.getElementsByClass("Measure"):
             print(i)
@@ -16,10 +18,6 @@ def parse(filename):
                 output.append({"type": "repeatStart"})
                 print("a")
 
-            if isinstance(barlineRight, bar.Repeat) and barlineRight.direction == "end":
-                output.append({"type": "repeatEnd"})
-                print("b")
-
             for element in measure:
                 if isinstance(element, note.Note):
                     pitch = element.nameWithOctave
@@ -29,6 +27,12 @@ def parse(filename):
                     output.append({"type": "rest", "duration": element.quarterLength})
                 elif isinstance(element, expressions.TextExpression):
                     output.append({"type":"text", "text": element.content.strip()})
+
+            if isinstance(barlineRight, bar.Repeat) and barlineRight.direction == "end":
+                output.append({"type": "repeatEnd"})
+                print("b")
+
+
 
     return output
 
