@@ -1,1 +1,1 @@
-print("abc"+"c")
+print(int("12.2"))

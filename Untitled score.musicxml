@@ -414,15 +414,15 @@
           </direction-type>
         <staff>1</staff>
         </direction>
-      <note default-x="12.5" default-y="-45">
+      <note default-x="12.5" default-y="-15">
         <pitch>
-          <step>D</step>
-          <octave>4</octave>
+          <step>C</step>
+          <octave>5</octave>
           </pitch>
         <duration>2</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
+        <stem>down</stem>
         <staff>1</staff>
         </note>
       <note default-x="40.28" default-y="-20">
