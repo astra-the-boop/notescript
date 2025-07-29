@@ -51,19 +51,21 @@ def interpreter(filename):
                 else:
                     if (next["type"] == "text"
                             and data[i + 2]["type"] == "note"
-                            and data[i + 2]["pitch"][0:1] in ["A", "B"]
-                            and data[i + 3]["type"] == "note"
+                            and data[i + 2]["pitch"][0:1] in ["A", "B"]):
+                        if (data[i + 3]["type"] == "note"
                             and data[i + 3]["pitch"].startswith("G")
                             and data[i + 4]["type"] == "text"
                             and data[i + 5]["type"] == "note"
                             and data[i + 5]["pitch"][0:1] in ["A", "B"]):
-                        print(math(
-                            data[i + 3]["pitch"],
-                            next["text"],
-                            data[i + 2]["pitch"],
-                            data[i + 4]["text"],
-                            data[i + 5]["pitch"]
-                        ))
+                            print(math(
+                                data[i + 3]["pitch"],
+                                next["text"],
+                                data[i + 2]["pitch"],
+                                data[i + 4]["text"],
+                                data[i + 5]["pitch"]
+                            ))
+                        else:
+                            print(next["text"])
 
 
 
