@@ -49,31 +49,22 @@ def interpreter(filename):
                         else:
                             raise NameError
                 else:
+                    if (next["type"] == "text"
+                            and data[i + 2]["type"] == "note"
+                            and data[i + 2]["pitch"][0:1] in ["A", "B"]
+                            and data[i + 3]["type"] == "note"
+                            and data[i + 3]["pitch"].startswith("G")
+                            and data[i + 4]["type"] == "text"
+                            and data[i + 5]["type"] == "note"
+                            and data[i + 5]["pitch"][0:1] in ["A", "B"]):
+                        print(math(
+                            data[i + 3]["pitch"],
+                            next["text"],
+                            data[i + 2]["pitch"],
+                            data[i + 4]["text"],
+                            data[i + 5]["pitch"]
+                        ))
 
-                    if next["type"] == "text":
-
-                        if data[i + 2]["type"] == "note" and data[i + 2]["pitch"][0:1] in ["A", "B"]:
-                            j=1
-                            while data[i + j]["type"] == "rest":
-                                j += 1
-                                if data[i + j]["type"] == "note":
-                                    break
-                            print(data[i + j+1])
-                            if
-
-                            # if "pitch" in data[i + j + 1] and data[i+j+1]["pitch"][0:1] in ["A", "B"]:
-                            #     k = 1
-                            #     while data[i+j+k]["type"] == "rest":
-                            #         if data[i+j+k]["type"] == "note":
-                            #             k += 1
-                            #             break
-                            #     print(data[i+j+k])
-                            #     if "pitch" in data[i+j+k] and data[i+j+k]["pitch"].startswith("G"):
-                            #         print(math(data[i + j]["pitch"],
-                            #             next["text"],
-                            #             data[i + 2]["pitch"],
-                            #             data[i+j+k-1]["text"],
-                            #             data[i+j+k]["pitch"]))
 
 
             if current["type"] == "repeatStart":
