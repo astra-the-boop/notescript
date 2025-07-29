@@ -13,7 +13,16 @@ def interpreter(filename):
 
             if current["type"] == "text":
                 if next["type"] == "note" and next["pitch"].startswith("C"):
-                    print(current["text"])
+                    if (current["text"].startswith('"') and current["text"].endswith('"')) or (current["text"].startswith("'") and current["text"].endswith("'")):
+                        print(current["text"][1:-1])
+                    else:
+                        try:
+                            print(float(current["text"]))
+                        except ValueError:
+                            if current["text"].strip() in vars.keys():
+                                print(vars[current["text"].strip()])
+                            else:
+                                raise NameError
 
 
             if current["type"] == "repeatStart":
@@ -41,11 +50,6 @@ def interpreter(filename):
 
 
                     j = j + 1
-
-
-
-
-
 
 
         except IndexError:

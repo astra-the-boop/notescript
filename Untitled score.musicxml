@@ -156,7 +156,7 @@
     <measure number="2" width="116.27">
       <direction placement="above">
         <direction-type>
-          <words relative-y="10">Hello World</words>
+          <words relative-y="10">&quot;Hello World&quot;</words>
           </direction-type>
         <staff>1</staff>
         </direction>
