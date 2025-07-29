@@ -46,10 +46,8 @@ def interpreter(filename):
                         elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("B"):
                             if data[i + j]["pitch"].startswith("B#"):
                                 vars.update({varName: int(float(data[i + j - 1]["text"]))})
-                                print('a')
                             else:
                                 vars.update({varName: float(data[i + j - 1]["text"])})
-                                print('b')
                             varDeclare = False
                         elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("E"):
                             vars.update({varName: bool(data[i + j - 1]["text"])})

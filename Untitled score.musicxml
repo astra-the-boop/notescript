@@ -274,11 +274,28 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="12.5" default-y="-125">
-        <rest/>
-        <duration>4</duration>
+      <direction placement="above">
+        <direction-type>
+          <words default-y="10.5" relative-y="10">&quot;//comment&quot;</words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
+      <note default-x="12.5" default-y="-95">
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>2</duration>
         <voice>5</voice>
-        <type>half</type>
+        <type>quarter</type>
+        <stem>down</stem>
+        <staff>2</staff>
+        </note>
+      <note default-x="40.28" default-y="-125">
+        <rest/>
+        <duration>2</duration>
+        <voice>5</voice>
+        <type>quarter</type>
         <staff>2</staff>
         </note>
       <note default-x="68.06" default-y="-125">
@@ -473,7 +490,7 @@
             <left-margin>0</left-margin>
             <right-margin>0</right-margin>
             </system-margins>
-          <system-distance>237.5</system-distance>
+          <system-distance>252.22</system-distance>
           </system-layout>
         <staff-layout number="2">
           <staff-distance>65</staff-distance>
@@ -689,7 +706,7 @@
             <left-margin>0</left-margin>
             <right-margin>0</right-margin>
             </system-margins>
-          <system-distance>237.5</system-distance>
+          <system-distance>252.22</system-distance>
           </system-layout>
         <staff-layout number="2">
           <staff-distance>65</staff-distance>
