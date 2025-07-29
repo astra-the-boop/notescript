@@ -15,16 +15,16 @@ def parse(filename):
                     if measure.rightBarline.direction == "end":
                         output.append({"type": "repeatEnd"})
 
-                for element in measure:
-                    if isinstance(element, note.Note):
-                        pitch = element.nameWithOctave
-                        duration = element.duration.quarterLength
-                        output.append({"type":"note", "pitch":pitch, "duration":duration})
-                    elif isinstance(element, note.Rest):
-                        duration = element.quarterLength
-                        output.append({"type":"rest", "duration":duration})
-                    elif isinstance(element, expressions.TextExpression):
-                        output.append({"type":"text", "text":element.content.strip()})
+            for element in measure:
+                if isinstance(element, note.Note):
+                    pitch = element.nameWithOctave
+                    duration = element.duration.quarterLength
+                    output.append({"type": "note", "pitch": pitch, "duration": duration})
+                elif isinstance(element, note.Rest):
+                    duration = element.quarterLength
+                    output.append({"type": "rest", "duration": duration})
+                elif isinstance(element, expressions.TextExpression):
+                    output.append({"type": "text", "text": element.content.strip()})
 
     return output
 
