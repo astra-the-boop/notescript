@@ -95,7 +95,7 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="1" width="151.67">
+    <measure number="1" width="152.57">
       <print>
         <system-layout>
           <system-margins>
@@ -137,7 +137,7 @@
         <staff>1</staff>
         <sound tempo="170"/>
         </direction>
-      <note default-x="99.92" default-y="-10">
+      <note default-x="100.38" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -146,17 +146,17 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="99.92" default-y="-115">
+      <note default-x="100.38" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="2" width="118.36">
+    <measure number="2" width="117.96">
       <direction placement="above">
         <direction-type>
-          <words relative-y="10">Hello Composer</words>
+          <words relative-x="-11.92" relative-y="9.01">Hello Composer</words>
           </direction-type>
         <staff>1</staff>
         </direction>
@@ -171,14 +171,14 @@
         <stem>down</stem>
         <staff>1</staff>
         </note>
-      <note default-x="42.23" default-y="-20">
+      <note default-x="42.63" default-y="-20">
         <rest/>
         <duration>16</duration>
         <voice>1</voice>
         <type>quarter</type>
         <staff>1</staff>
         </note>
-      <note default-x="71.96" default-y="-20">
+      <note default-x="72.76" default-y="-20">
         <rest/>
         <duration>32</duration>
         <voice>1</voice>
@@ -188,32 +188,75 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="51.78" default-y="-115">
+      <note default-x="52.48" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="3" width="81.19">
-      <note default-x="33.2" default-y="-10">
-        <rest measure="yes"/>
-        <duration>64</duration>
+    <measure number="3" width="155.67">
+      <barline location="left">
+        <bar-style>heavy-light</bar-style>
+        <repeat direction="forward"/>
+        </barline>
+      <direction placement="above">
+        <direction-type>
+          <words default-y="19.17" relative-y="10">var</words>
+          </direction-type>
+        <staff>1</staff>
+        </direction>
+      <note default-x="31.36" default-y="-45">
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>16</duration>
         <voice>1</voice>
+        <type>quarter</type>
+        <stem>up</stem>
+        <staff>1</staff>
+        </note>
+      <direction placement="above">
+        <direction-type>
+          <words default-y="34.16" relative-y="10">value</words>
+          </direction-type>
+        <staff>1</staff>
+        </direction>
+      <note default-x="61.49" default-y="-15">
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+          </pitch>
+        <duration>16</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>down</stem>
+        <staff>1</staff>
+        </note>
+      <note default-x="91.62" default-y="-20">
+        <rest/>
+        <duration>32</duration>
+        <voice>1</voice>
+        <type>half</type>
         <staff>1</staff>
         </note>
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="33.2" default-y="-115">
+      <note default-x="71.34" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+        <repeat direction="backward"/>
+        </barline>
       </measure>
-    <measure number="4" width="103.49">
-      <note default-x="44.35" default-y="-10">
+    <measure number="4" width="104.69">
+      <note default-x="44.95" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -229,7 +272,7 @@
         <type>half</type>
         <staff>2</staff>
         </note>
-      <note default-x="57.1" default-y="-125">
+      <note default-x="57.7" default-y="-125">
         <rest/>
         <duration>32</duration>
         <voice>5</voice>
@@ -237,7 +280,7 @@
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="5" width="118.36">
+    <measure number="5" width="119.76">
       <note default-x="12.5" default-y="-20">
         <rest/>
         <duration>16</duration>
@@ -245,14 +288,14 @@
         <type>quarter</type>
         <staff>1</staff>
         </note>
-      <note default-x="42.23" default-y="-20">
+      <note default-x="42.63" default-y="-20">
         <rest/>
         <duration>16</duration>
         <voice>1</voice>
         <type>quarter</type>
         <staff>1</staff>
         </note>
-      <note default-x="71.96" default-y="-20">
+      <note default-x="72.76" default-y="-20">
         <rest/>
         <duration>32</duration>
         <voice>1</voice>
@@ -262,15 +305,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="51.78" default-y="-115">
+      <note default-x="52.48" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="6" width="81.19">
-      <note default-x="33.2" default-y="-10">
+    <measure number="6" width="82.1">
+      <note default-x="33.65" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -279,15 +322,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="33.2" default-y="-115">
+      <note default-x="33.65" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="7" width="81.19">
-      <note default-x="33.2" default-y="-10">
+    <measure number="7" width="82.1">
+      <note default-x="33.65" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -296,15 +339,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="33.2" default-y="-115">
+      <note default-x="33.65" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="8" width="81.19">
-      <note default-x="33.2" default-y="-10">
+    <measure number="8" width="82.1">
+      <note default-x="33.65" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -313,15 +356,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="33.2" default-y="-115">
+      <note default-x="33.65" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="9" width="81.19">
-      <note default-x="33.2" default-y="-10">
+    <measure number="9" width="82.1">
+      <note default-x="33.65" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -330,31 +373,14 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="33.2" default-y="-115">
+      <note default-x="33.65" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="10" width="81.19">
-      <note default-x="33.2" default-y="-10">
-        <rest measure="yes"/>
-        <duration>64</duration>
-        <voice>1</voice>
-        <staff>1</staff>
-        </note>
-      <backup>
-        <duration>64</duration>
-        </backup>
-      <note default-x="33.2" default-y="-115">
-        <rest measure="yes"/>
-        <duration>64</duration>
-        <voice>5</voice>
-        <staff>2</staff>
-        </note>
-      </measure>
-    <measure number="11" width="130.08">
+    <measure number="10" width="130.08">
       <print new-system="yes">
         <system-layout>
           <system-margins>
@@ -377,6 +403,23 @@
         <duration>64</duration>
         </backup>
       <note default-x="75.57" default-y="-115">
+        <rest measure="yes"/>
+        <duration>64</duration>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
+      </measure>
+    <measure number="11" width="81.72">
+      <note default-x="33.46" default-y="-10">
+        <rest measure="yes"/>
+        <duration>64</duration>
+        <voice>1</voice>
+        <staff>1</staff>
+        </note>
+      <backup>
+        <duration>64</duration>
+        </backup>
+      <note default-x="33.46" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
@@ -553,24 +596,7 @@
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="22" width="81.72">
-      <note default-x="33.46" default-y="-10">
-        <rest measure="yes"/>
-        <duration>64</duration>
-        <voice>1</voice>
-        <staff>1</staff>
-        </note>
-      <backup>
-        <duration>64</duration>
-        </backup>
-      <note default-x="33.46" default-y="-115">
-        <rest measure="yes"/>
-        <duration>64</duration>
-        <voice>5</voice>
-        <staff>2</staff>
-        </note>
-      </measure>
-    <measure number="23" width="145.5">
+    <measure number="22" width="136.67">
       <print new-system="yes">
         <system-layout>
           <system-margins>
@@ -583,7 +609,7 @@
           <staff-distance>65</staff-distance>
           </staff-layout>
         </print>
-      <note default-x="83.28" default-y="-10">
+      <note default-x="78.87" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -592,15 +618,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="83.28" default-y="-115">
+      <note default-x="78.87" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="24" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="23" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -609,15 +635,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="25" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="24" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -626,15 +652,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="26" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="25" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -643,15 +669,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="27" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="26" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -660,15 +686,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="28" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="27" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -677,15 +703,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="29" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="28" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -694,15 +720,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="30" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="29" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -711,15 +737,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="31" width="97.15">
-      <note default-x="41.18" default-y="-10">
+    <measure number="30" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -728,15 +754,15 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
         <staff>2</staff>
         </note>
       </measure>
-    <measure number="32" width="106.35">
-      <note default-x="41.18" default-y="-10">
+    <measure number="31" width="88.32">
+      <note default-x="36.76" default-y="-10">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>1</voice>
@@ -745,7 +771,24 @@
       <backup>
         <duration>64</duration>
         </backup>
-      <note default-x="41.18" default-y="-115">
+      <note default-x="36.76" default-y="-115">
+        <rest measure="yes"/>
+        <duration>64</duration>
+        <voice>5</voice>
+        <staff>2</staff>
+        </note>
+      </measure>
+    <measure number="32" width="97.52">
+      <note default-x="36.76" default-y="-10">
+        <rest measure="yes"/>
+        <duration>64</duration>
+        <voice>1</voice>
+        <staff>1</staff>
+        </note>
+      <backup>
+        <duration>64</duration>
+        </backup>
+      <note default-x="36.76" default-y="-115">
         <rest measure="yes"/>
         <duration>64</duration>
         <voice>5</voice>
