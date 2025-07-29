@@ -31,7 +31,13 @@ def interpreter(filename):
                         varDeclare = True
                     if varDeclare:
                         if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("A"):
-                            pass
+                            vars.update({varName: data[i + j - 1]["text"]})
+                        elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("B"):
+                            vars.update({varName: float(data[i + j - 1]["text"])})
+                        elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("E"):
+                            vars.update({varName: bool(data[i + j - 1]["text"])})
+                        else:
+                            vars.update({varName: None})
 
 
                     j = j + 1
@@ -44,6 +50,9 @@ def interpreter(filename):
 
         except IndexError:
             pass
+
+
+
 
 
 
