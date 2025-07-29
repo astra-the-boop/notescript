@@ -5,15 +5,20 @@ def parse(filename):
     output = []
 
     for part in score.parts:
+        i = 1
         for measure in part.getElementsByClass("Measure"):
+            print(i)
+            i = i + 1
             barlineLeft = measure.leftBarline
             barlineRight = measure.rightBarline
 
             if isinstance(barlineLeft, bar.Repeat) and barlineLeft.direction == "start":
                 output.append({"type": "repeatStart"})
+                print("a")
 
             if isinstance(barlineRight, bar.Repeat) and barlineRight.direction == "end":
                 output.append({"type": "repeatEnd"})
+                print("b")
 
             for element in measure:
                 if isinstance(element, note.Note):
