@@ -129,7 +129,7 @@
         </attributes>
       <direction placement="above" system="only-top">
         <direction-type>
-          <metronome parentheses="no" default-x="-37.68" relative-y="20">
+          <metronome parentheses="no" default-x="-37.68" default-y="8.72" relative-y="20">
             <beat-unit>half</beat-unit>
             <per-minute>85</per-minute>
             </metronome>
@@ -148,6 +148,12 @@
         <stem>up</stem>
         <staff>1</staff>
         </note>
+      <direction placement="above">
+        <direction-type>
+          <words relative-y="10">test</words>
+          </direction-type>
+        <staff>1</staff>
+        </direction>
       <note default-x="113.86" default-y="-20">
         <pitch>
           <step>B</step>
@@ -159,6 +165,12 @@
         <stem>down</stem>
         <staff>1</staff>
         </note>
+      <direction placement="above">
+        <direction-type>
+          <words default-y="18.68" relative-y="10">test</words>
+          </direction-type>
+        <staff>1</staff>
+        </direction>
       <note default-x="144.74" default-y="-25">
         <pitch>
           <step>A</step>

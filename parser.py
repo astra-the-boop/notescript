@@ -1,4 +1,4 @@
-from music21 import converter, note, meter, tempo, stream
+from music21 import converter, note, meter, tempo, stream, expressions
 
 def parse(filename):
     score = converter.parse(filename)
@@ -27,6 +27,12 @@ def parse(filename):
             output.append({
                 "type": "rest",
                 "duration": duration,
+            })
+
+        elif isinstance(element, expressions.TextExpression):
+            output.append({
+                "type": "text",
+                "text": element.content.strip()
             })
 
 
