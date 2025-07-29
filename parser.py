@@ -7,16 +7,12 @@ def parse(filename):
     for idx, part in enumerate(score.parts):
         if idx > 0:
             break
-        i = 1
         for measure in part.getElementsByClass("Measure"):
-            print(i)
-            i = i + 1
             barlineLeft = measure.leftBarline
             barlineRight = measure.rightBarline
 
             if isinstance(barlineLeft, bar.Repeat) and barlineLeft.direction == "start":
                 output.append({"type": "repeatStart"})
-                print("a")
 
             for element in measure:
                 if isinstance(element, note.Note):
@@ -30,7 +26,6 @@ def parse(filename):
 
             if isinstance(barlineRight, bar.Repeat) and barlineRight.direction == "end":
                 output.append({"type": "repeatEnd"})
-                print("b")
 
 
 
