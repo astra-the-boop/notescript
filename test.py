@@ -1,1 +1,1 @@
-print(a)
+print("abc"+"c")

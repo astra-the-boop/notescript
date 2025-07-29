@@ -30,6 +30,7 @@ def interpreter(filename):
                 varName = ""
                 varDeclare = False
                 while data[i + j]["type"] != "repeatEnd":
+
                     # VARIABLES
                     # DECLARING VARIABLES
                     if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D"):
@@ -41,10 +42,13 @@ def interpreter(filename):
                     if varDeclare:
                         if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("A"):
                             vars.update({varName: data[i + j - 1]["text"]})
+                            varDeclare = False
                         elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("B"):
                             vars.update({varName: float(data[i + j - 1]["text"])})
+                            varDeclare = False
                         elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("E"):
                             vars.update({varName: bool(data[i + j - 1]["text"])})
+                            varDeclare = False
                         else:
                             vars.update({varName: None})
 
@@ -54,6 +58,7 @@ def interpreter(filename):
 
         except IndexError:
             pass
+    print(vars)
 
 
 
