@@ -1,6 +1,17 @@
 from parser import parse
 
-
+def typecast(type, val):
+    if type["pitch"].startswith("A"):
+        return str(val["text"])
+    elif type["pitch"][0:3] in ["B##", "B--"]:
+        return bool(val["text"])
+    elif type["pitch"].startswith("B#"):
+        return int(float(val["text"]))
+    elif type["pitch"].startswith("B"):
+        return float(val["text"])
+    else:
+        print(type["pitch"])
+        return None
 
 def math(current, prevVal, prevType, nextVal, nextType):
     if prevType[0:1] == "A" or nextType[0:1] == "A":
@@ -84,29 +95,22 @@ def interpreter(filename):
                             varName = ""
                         varDeclare = True
                     if varDeclare:
-                        if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("A"):
-                            vars.update({varName: data[i + j - 1]["text"]})
-                            varDeclare = False
-                        elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("B"):
-                            if data[i + j]["pitch"].startswith("B#"):
-                                vars.update({varName: int(float(data[i + j - 1]["text"]))})
-                            else:
-                                vars.update({varName: float(data[i + j - 1]["text"])})
-                            varDeclare = False
-                        elif data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("E"):
-                            vars.update({varName: bool(data[i + j - 1]["text"])})
+                        if data[i + j]["type"] == "note" and data[i + j]["pitch"][0:1] in ["A", "B"]:
+                            vars.update({varName:typecast(data[i+j], data[i+j-1])})
                             varDeclare = False
                         else:
                             vars.update({varName: None})
 
 
-                    j = j + 1
+                    j += 1
+
 
 
 
 
         except IndexError:
             pass
+    print(vars)
 
 
 

@@ -1,1 +1,1 @@
-print(bool(2))
+print(int(2.1))
