@@ -1,5 +1,6 @@
 from music21 import converter, note, expressions, bar
 
+
 def parse(filename):
     score = converter.parse(filename)
     output = []
@@ -10,6 +11,7 @@ def parse(filename):
         for measure in part.getElementsByClass("Measure"):
             barlineLeft = measure.leftBarline
             barlineRight = measure.rightBarline
+
 
             if isinstance(barlineLeft, bar.Repeat) and barlineLeft.direction == "start":
                 output.append({"type": "repeatStart"})
