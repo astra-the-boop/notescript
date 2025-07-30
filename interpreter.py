@@ -10,12 +10,11 @@ def typecast(type, val):
     elif type["pitch"].startswith("B"):
         return float(val["text"])
     else:
-        print(type["pitch"])
         return None
 
 def math(current, prevVal, prevType, nextVal, nextType):
     if prevType[0:1] == "A" or nextType[0:1] == "A":
-        if prevType[0:1] == nextType[0:1]:
+        if (prevType[0:1] == nextType[0:1] or prevType[0:1] == "D" or nextType[0:1] == "D") and (current.startswith("G#") and not current.startswith("G##")):
             return prevVal + nextVal
         else:
             raise TypeError
@@ -30,6 +29,22 @@ def math(current, prevVal, prevType, nextVal, nextType):
                 return float(x)
         elif current.startswith("G#"):
             x = float(prevVal) + float(nextVal)
+            if prevType.startswith("B##") or prevType.startswith("B--"):
+                return bool(x)
+            elif prevType.startswith("B#"):
+                return int(x)
+            else:
+                return float(x)
+        elif current.startswith("G--"):
+            x = float(prevVal) / float(nextVal)
+            if prevType.startswith("B##") or prevType.startswith("B--"):
+                return bool(x)
+            elif prevType.startswith("B#"):
+                return int(x)
+            else:
+                return float(x)
+        elif current.startswith("G-"):
+            x = float(prevVal) - float(nextVal)
             if prevType.startswith("B##") or prevType.startswith("B--"):
                 return bool(x)
             elif prevType.startswith("B#"):
@@ -88,24 +103,33 @@ def interpreter(filename):
 
                     # VARIABLES
                     # DECLARING VARIABLES
-                    if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D"):
+                    if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D") and not varDeclare:
                         if data[i + j - 1]["type"] == "text":
                             varName = data[i + j - 1]["text"].strip()
                         else:
                             varName = ""
                         varDeclare = True
                     if varDeclare:
-                        if data[i + j]["type"] == "note" and data[i + j]["pitch"][0:1] in ["A", "B"]:
-                            vars.update({varName:typecast(data[i+j], data[i+j-1])})
-                            varDeclare = False
+                        if data[i + j]["type"] == "note":
+                            if data[i + j]["pitch"][0:1] in ["A", "B"]:
+                                vars.update({varName:typecast(data[i+j], data[i+j-1])})
+                                if data[i+j+1]["type"] == "note" and data[i+j+1]["pitch"].startswith("G"):
+                                    if data[i+j+2]["type"] == "text" and data[i+j+3]["type"] == "note" and data[i+j+3]["pitch"].startswith("D"):
+                                        vars.update({varName:math(data[i+j+1], data[i+j-1]["text"], data[i+j]["pitch"], vars[data[i+2]["text"]], data[i+j+3]["pitch"])})
+                                    else:
+                                        vars.update({varName:math(data[i+j+1]["pitch"], data[i+j-1]["text"], data[i+j]["pitch"], data[i+j+2]["text"],data[i+j+3]["pitch"])})
+                                break
+                            elif data[i + j]["pitch"].startswith("D#"):
+                                vars.update({varName: vars[data[i+j-1]["text"]]})
+                                if data[i+j+1]["type"] == "note" and data[i+j+1]["pitch"].startswith("G"):
+                                    if data[i+j+2]["type"] == "text" and data[i+j+3]["type"] == "note" and data[i+j+3]["pitch"].startswith("D"):
+                                        vars.update({varName:math(data[i+j+1], vars[data[i+j-1]["text"]], data[i+j]["pitch"], vars[data[i+2]["text"]], data[i+j+3]["pitch"])})
+                                    else:
+                                        vars.update({varName:math(data[i+j+1]["pitch"], vars[data[i+j-1]["text"]], data[i+j]["pitch"], data[i+j+2]["text"],data[i+j+3]["pitch"])})
+                                break
                         else:
                             vars.update({varName: None})
-
-
                     j += 1
-
-
-
 
 
         except IndexError:
