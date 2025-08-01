@@ -74,8 +74,8 @@ def interpreter(filename):
                         if previous["text"].strip() in vars.keys():
                             print(vars[previous["text"].strip()])
                         else:
-                            print(previous["text"])
-                            print(vars)
+                            # print(previous["text"])
+                            # print(vars)
                             raise NameError
                 else:
                     if (next["type"] == "text"
@@ -101,7 +101,10 @@ def interpreter(filename):
             if current["type"] == "repeatStart":
                 j = 0
                 varName = ""
+
                 while data[i + j]["type"] != "repeatEnd":
+                    # print(varName)
+                    # print(repeatUse)
 
                     # VARIABLES
                     # DECLARING VARIABLES
@@ -143,8 +146,8 @@ def interpreter(filename):
                                 varName = ""
                             repeatUse.append("var")
                         j += 1
-                if data[i+j]["type"] == "repeatEnd":
-                    repeatUse.pop()
+            if current["type"] == "repeatEnd":
+                repeatUse.pop()
 
 
 
