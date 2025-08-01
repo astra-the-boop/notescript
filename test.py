@@ -1,1 +1,5 @@
-print(int(2.1))
+a = []
+if a[-1] == "a":
+    print("a")
+else:
+    print("b")
