@@ -1,3 +1,8 @@
+#### TO DO: #####
+# - Finish eval()
+# - Finish if-else thingys
+
+
 from parser import parse
 
 vars = {}
