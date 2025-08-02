@@ -1,6 +1,42 @@
 from parser import parse
 
+vars = {}
+
 # def compare()
+
+def prnt(data, i):
+    previous = data[i - 1]
+    current = data[i]
+    next = data[i + 1]
+    if current["type"] == "note" and current["pitch"].startswith("C"):
+        if previous["type"] == "text":
+            try:
+                print(float(previous["text"]))
+            except ValueError:
+                if previous["text"].strip() in vars.keys():
+                    print(vars[previous["text"].strip()])
+                else:
+                    # print(previous["text"])
+                    # print(vars)
+                    raise NameError
+        else:
+            if (next["type"] == "text"
+                    and data[i + 2]["type"] == "note"
+                    and data[i + 2]["pitch"][0:1] in ["A", "B"]):
+                if (data[i + 3]["type"] == "note"
+                        and data[i + 3]["pitch"].startswith("G")
+                        and data[i + 4]["type"] == "text"
+                        and data[i + 5]["type"] == "note"
+                        and data[i + 5]["pitch"][0:1] in ["A", "B"]):
+                    print(math(
+                        data[i + 3]["pitch"],
+                        next["text"],
+                        data[i + 2]["pitch"],
+                        data[i + 4]["text"],
+                        data[i + 5]["pitch"]
+                    ))
+                else:
+                    print(next["text"])
 
 def typecast(type, val):
     if type["pitch"].startswith("A"):
@@ -59,8 +95,9 @@ def math(current, prevVal, prevType, nextVal, nextType):
 
 def interpreter(filename):
     data = parse(filename)
-    vars = {}
     repeatUse = []
+    runMode = "run" #run: regular run; eval: for ... evaluating shit; def: defining shit
+
     for i in range(len(data)):
         try:
             previous = data[i - 1]
@@ -68,35 +105,8 @@ def interpreter(filename):
             next = data[i + 1]
 
             # PRINT
-            if current["type"] == "note" and current["pitch"].startswith("C"):
-                if previous["type"] == "text":
-                    try:
-                        print(float(previous["text"]))
-                    except ValueError:
-                        if previous["text"].strip() in vars.keys():
-                            print(vars[previous["text"].strip()])
-                        else:
-                            # print(previous["text"])
-                            # print(vars)
-                            raise NameError
-                else:
-                    if (next["type"] == "text"
-                            and data[i + 2]["type"] == "note"
-                            and data[i + 2]["pitch"][0:1] in ["A", "B"]):
-                        if (data[i + 3]["type"] == "note"
-                            and data[i + 3]["pitch"].startswith("G")
-                            and data[i + 4]["type"] == "text"
-                            and data[i + 5]["type"] == "note"
-                            and data[i + 5]["pitch"][0:1] in ["A", "B"]):
-                            print(math(
-                                data[i + 3]["pitch"],
-                                next["text"],
-                                data[i + 2]["pitch"],
-                                data[i + 4]["text"],
-                                data[i + 5]["pitch"]
-                            ))
-                        else:
-                            print(next["text"])
+            if runMode == "run":
+                prnt(data, i)
 
 
 
@@ -105,20 +115,18 @@ def interpreter(filename):
                 varName = ""
 
                 while data[i + j]["type"] != "repeatEnd":
-                    # print(varName)
-                    # print(repeatUse)
-
                     # VARIABLES
                     # DECLARING VARIABLES
                     try:
-                        if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D") and repeatUse[-1] != "var":
+                        if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D") and repeatUse[-1] != "var" and runMode == "run":
                             if data[i + j - 1]["type"] == "text":
                                 varName = data[i + j - 1]["text"].strip()
                             else:
                                 print(data[i+j-1]["type"])
                                 varName = ""
+                            runMode = "def"
                             repeatUse.append("var")
-                        if repeatUse[-1] == "var":
+                        if repeatUse[-1] == "var" and runMode == "def":
                             if data[i + j]["type"] == "note":
                                 if data[i + j]["pitch"][0:1] in ["A", "B"]:
                                     if data[i+j]["pitch"][0:3] in ["B##", "B--"]:
@@ -139,27 +147,31 @@ def interpreter(filename):
                                         else:
                                             vars.update({varName:math(data[i+j+1]["pitch"], vars[data[i+j-1]["text"]], data[i+j]["pitch"], data[i+j+2]["text"],data[i+j+3]["pitch"])})
                                     break
-                            else:
+                            elif runMode == "def":
                                 vars.update({varName: None})
 
-                    # IF STATEMENTS
-                    #     if data[i+j]["type"] == "note" and data[i+j]["pitch"].startswith("E"):
-
-
-                        j += 1
                     except IndexError:
-                        if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D"):
+                        if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D") and repeatUse[-1] != "var" and runMode == "run":
                             if data[i + j - 1]["type"] == "text":
                                 varName = data[i + j - 1]["text"].strip()
                             else:
                                 print(data[i + j - 1]["type"])
                                 varName = ""
+                            runMode = "def"
                             repeatUse.append("var")
-                        j += 1
+                    j += 1
+
+                    # IF STATEMENTS
+                    if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("E") and runMode != "eval":
+                        runMode = "eval"
+                        repeatUse.append("ifeval")
+
+
 
 
 
             if current["type"] == "repeatEnd":
+                runMode = "run"
                 repeatUse.pop()
 
 
