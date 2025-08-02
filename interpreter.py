@@ -1,5 +1,7 @@
 from parser import parse
 
+# def compare()
+
 def typecast(type, val):
     if type["pitch"].startswith("A"):
         return str(val["text"])
@@ -119,13 +121,16 @@ def interpreter(filename):
                         if repeatUse[-1] == "var":
                             if data[i + j]["type"] == "note":
                                 if data[i + j]["pitch"][0:1] in ["A", "B"]:
-                                    vars.update({varName:typecast(data[i+j], data[i+j-1])})
-                                    if data[i+j+1]["type"] == "note" and data[i+j+1]["pitch"].startswith("G"):
-                                        if data[i+j+2]["type"] == "text" and data[i+j+3]["type"] == "note" and data[i+j+3]["pitch"].startswith("D"):
-                                            vars.update({varName:math(data[i+j+1], data[i+j-1]["text"], data[i+j]["pitch"], vars[data[i+2]["text"]], data[i+j+3]["pitch"])})
-                                        else:
-                                            vars.update({varName:math(data[i+j+1]["pitch"], data[i+j-1]["text"], data[i+j]["pitch"], data[i+j+2]["text"],data[i+j+3]["pitch"])})
-                                    break
+                                    if data[i+j]["pitch"][0:3] in ["B##", "B--"]:
+                                        vars.update({varName: data[i+j]["pitch"].startswith("B##")})
+                                    else:
+                                        vars.update({varName:typecast(data[i+j], data[i+j-1])})
+                                        if data[i+j+1]["type"] == "note" and data[i+j+1]["pitch"].startswith("G"):
+                                            if data[i+j+2]["type"] == "text" and data[i+j+3]["type"] == "note" and data[i+j+3]["pitch"].startswith("D"):
+                                                vars.update({varName:math(data[i+j+1], data[i+j-1]["text"], data[i+j]["pitch"], vars[data[i+2]["text"]], data[i+j+3]["pitch"])})
+                                            else:
+                                                vars.update({varName:math(data[i+j+1]["pitch"], data[i+j-1]["text"], data[i+j]["pitch"], data[i+j+2]["text"],data[i+j+3]["pitch"])})
+                                        break
                                 elif data[i + j]["pitch"].startswith("D#"):
                                     vars.update({varName: vars[data[i+j-1]["text"]]})
                                     if data[i+j+1]["type"] == "note" and data[i+j+1]["pitch"].startswith("G"):
@@ -136,6 +141,11 @@ def interpreter(filename):
                                     break
                             else:
                                 vars.update({varName: None})
+
+                    # IF STATEMENTS
+                    #     if data[i+j]["type"] == "note" and data[i+j]["pitch"].startswith("E"):
+
+
                         j += 1
                     except IndexError:
                         if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("D"):
@@ -146,6 +156,9 @@ def interpreter(filename):
                                 varName = ""
                             repeatUse.append("var")
                         j += 1
+
+
+
             if current["type"] == "repeatEnd":
                 repeatUse.pop()
 
