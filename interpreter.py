@@ -2,7 +2,8 @@ from parser import parse
 
 vars = {}
 
-# def compare()
+def eval(data, i, j):
+
 
 def prnt(data, i):
     previous = data[i - 1]
@@ -159,12 +160,17 @@ def interpreter(filename):
                                 varName = ""
                             runMode = "def"
                             repeatUse.append("var")
-                    j += 1
+
 
                     # IF STATEMENTS
-                    if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("E") and runMode != "eval":
-                        runMode = "eval"
-                        repeatUse.append("ifeval")
+                    if data[i + j]["type"] == "note" and data[i + j]["pitch"].startswith("E"):
+                        if runMode == "eval":
+
+                        else:
+                            runMode = "eval"
+                            repeatUse.append("ifEval")
+
+                    j += 1
 
 
 
