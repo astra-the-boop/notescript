@@ -73,5 +73,3 @@ def parse(filename):
 
     return output
 
-
-print(parse("Untitled score.musicxml"))

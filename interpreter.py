@@ -157,19 +157,8 @@ def interpreter(filename):
                             repeatUse.append("var")
                         j += 1
 
-
-
             if current["type"] == "repeatEnd":
                 repeatUse.pop()
 
-
-
         except IndexError:
             pass
-
-
-
-
-
-
-interpreter("Untitled score.musicxml")
