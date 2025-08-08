@@ -71,7 +71,7 @@
     </credit>
   <credit page="1">
     <credit-type>subtitle</credit-type>
-    <credit-words default-x="600.24" default-y="1554.473563" justify="center" valign="top" font-size="14">explodes</credit-words>
+    <credit-words default-x="600.24" default-y="1554.473563" justify="center" valign="top" font-size="14">demo</credit-words>
     </credit>
   <credit page="1">
     <credit-type>composer</credit-type>
@@ -105,7 +105,7 @@
           <top-system-distance>170</top-system-distance>
           </system-layout>
         <staff-layout number="2">
-          <staff-distance>65</staff-distance>
+          <staff-distance>68.77</staff-distance>
           </staff-layout>
         </print>
       <attributes>
@@ -146,7 +146,7 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="99.33" default-y="-115">
+      <note default-x="99.33" default-y="-118.77">
         <rest measure="yes"/>
         <duration>8</duration>
         <voice>5</voice>
@@ -233,7 +233,13 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="71.78" default-y="-115">
+      <direction placement="above">
+        <direction-type>
+          <words relative-y="10">print 1.5+1</words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
+      <note default-x="71.78" default-y="-118.77">
         <rest measure="yes"/>
         <duration>8</duration>
         <voice>5</voice>
@@ -283,7 +289,13 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="60.43" default-y="-115">
+      <direction placement="above">
+        <direction-type>
+          <words relative-x="-10.9" relative-y="17.93">var = &quot;Good morning, Internet&quot; </words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
+      <note default-x="60.43" default-y="-118.77">
         <rest measure="yes"/>
         <duration>8</duration>
         <voice>5</voice>
@@ -319,21 +331,21 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="12.5" default-y="-125">
+      <note default-x="12.5" default-y="-128.77">
         <rest/>
         <duration>2</duration>
         <voice>5</voice>
         <type>quarter</type>
         <staff>2</staff>
         </note>
-      <note default-x="41.33" default-y="-125">
+      <note default-x="41.33" default-y="-128.77">
         <rest/>
         <duration>2</duration>
         <voice>5</voice>
         <type>quarter</type>
         <staff>2</staff>
         </note>
-      <note default-x="70.16" default-y="-125">
+      <note default-x="70.16" default-y="-128.77">
         <rest/>
         <duration>4</duration>
         <voice>5</voice>
@@ -383,7 +395,13 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="57.41" default-y="-115">
+      <direction placement="above">
+        <direction-type>
+          <words default-y="31.85" relative-y="10">print var</words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
+      <note default-x="57.41" default-y="-118.77">
         <rest measure="yes"/>
         <duration>8</duration>
         <voice>5</voice>
@@ -448,7 +466,13 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="76.26" default-y="-115">
+      <direction placement="above">
+        <direction-type>
+          <words relative-x="-8.92" relative-y="10">foo = int(12.2)</words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
+      <note default-x="76.26" default-y="-118.77">
         <rest measure="yes"/>
         <duration>8</duration>
         <voice>5</voice>
@@ -515,7 +539,15 @@
       <backup>
         <duration>8</duration>
         </backup>
-      <note default-x="57.41" default-y="-115">
+      <direction placement="above">
+        <direction-type>
+          <words relative-x="-3.96" relative-y="17.48">print foo
+</words>
+          <words>print &quot;Hello, World&quot;</words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
+      <note default-x="57.41" default-y="-118.77">
         <rest measure="yes"/>
         <duration>8</duration>
         <voice>5</voice>
@@ -529,7 +561,7 @@
             <left-margin>0</left-margin>
             <right-margin>0</right-margin>
             </system-margins>
-          <system-distance>227.5</system-distance>
+          <system-distance>233.9</system-distance>
           </system-layout>
         <staff-layout number="2">
           <staff-distance>65</staff-distance>
@@ -619,6 +651,12 @@
       <backup>
         <duration>8</duration>
         </backup>
+      <direction placement="above">
+        <direction-type>
+          <words relative-y="10">bar = foo + 0.7</words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
       <note default-x="150.31" default-y="-115">
         <rest measure="yes"/>
         <duration>8</duration>
@@ -650,6 +688,12 @@
       <backup>
         <duration>8</duration>
         </backup>
+      <direction placement="above">
+        <direction-type>
+          <words relative-y="10">print bar</words>
+          </direction-type>
+        <staff>2</staff>
+        </direction>
       <note default-x="40.97" default-y="-115">
         <rest measure="yes"/>
         <duration>8</duration>
@@ -783,7 +827,7 @@
             <left-margin>0</left-margin>
             <right-margin>0</right-margin>
             </system-margins>
-          <system-distance>227.5</system-distance>
+          <system-distance>233.9</system-distance>
           </system-layout>
         <staff-layout number="2">
           <staff-distance>65</staff-distance>
@@ -999,7 +1043,7 @@
             <left-margin>0</left-margin>
             <right-margin>0</right-margin>
             </system-margins>
-          <system-distance>227.5</system-distance>
+          <system-distance>233.9</system-distance>
           </system-layout>
         <staff-layout number="2">
           <staff-distance>65</staff-distance>

@@ -16,7 +16,7 @@ def typecast(type, val):
 
 def math(current, prevVal, prevType, nextVal, nextType):
     if prevType[0:1] == "A" or nextType[0:1] == "A":
-        if (prevType[0:1] == nextType[0:1] or prevType[0:1] == "D" or nextType[0:1] == "D") and (current.startswith("G#") and not current.startswith("G##")):
+        if prevType[0:1] == nextType[0:1]:
             return prevVal + nextVal
         else:
             raise TypeError
@@ -31,22 +31,6 @@ def math(current, prevVal, prevType, nextVal, nextType):
                 return float(x)
         elif current.startswith("G#"):
             x = float(prevVal) + float(nextVal)
-            if prevType.startswith("B##") or prevType.startswith("B--"):
-                return bool(x)
-            elif prevType.startswith("B#"):
-                return int(x)
-            else:
-                return float(x)
-        elif current.startswith("G--"):
-            x = float(prevVal) / float(nextVal)
-            if prevType.startswith("B##") or prevType.startswith("B--"):
-                return bool(x)
-            elif prevType.startswith("B#"):
-                return int(x)
-            else:
-                return float(x)
-        elif current.startswith("G-"):
-            x = float(prevVal) - float(nextVal)
             if prevType.startswith("B##") or prevType.startswith("B--"):
                 return bool(x)
             elif prevType.startswith("B#"):
