@@ -1,4 +1,5 @@
 use pyo3::prelude::*;
+use std::ffi::CString;
 use pyo3::types::{PyModule, PyTuple};
 use serde_json::Value;
 
@@ -15,18 +16,23 @@ fn parser(path: &str) -> Value {
     Python::with_gil(|py| {
         let src = include_str!("parser.py");
 
-        let module = PyModule::from_code(py, src, "parser.py", "parser")
-            .expect("Couldn't load parser.py");
+        let code = CString::new(src).unwrap();
+        let filename = CString::new("parser.py").unwrap();
+        let module_name = CString::new("parser").unwrap();
 
-        let result = module
+        let module = PyModule::from_code(py, &code, &filename, &module_name)
+            .expect("no load parser.py :(");
+
+        let results = module
             .getattr("parse")
             .unwrap()
-            .call1(PyTuple::new(py, &[path]))
+            .call1((path,))
             .unwrap();
 
-        result.extract::<Value>().unwrap()
+        results.extract::<Value>().unwrap()
     })
 }
+
 
 fn fuckMyLife(json: &Value) -> Vec<Event> {
     let mut out = Vec::new();
