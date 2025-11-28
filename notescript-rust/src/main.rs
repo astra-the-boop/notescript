@@ -6,6 +6,7 @@ use serde_json::Value;
 enum Event {
     Note { pitch:String, duration:f32},
     Text(String),
+    Rest,
     RepeatStart,
     RepeatEnd,
 }
@@ -14,18 +15,20 @@ enum Event {
 fn parser(path: &str) -> Value {
     Python::with_gil(|py| {
         let src = include_str!("parser.py");
-
         let module = PyModule::from_code(py, src, "parser.py", "parser")
-            .expect("no load parser.py :(");
+            .expect("failed to load parser.py");
 
         let raw_json: String = module
             .getattr("parse").unwrap()
-            .call1((path,)).unwrap()
-            .extract().unwrap();
+            .call1((path,))
+            .unwrap()
+            .extract()
+            .unwrap();
 
         serde_json::from_str(&raw_json).unwrap()
     })
 }
+
 
 fn fuckMyLife(json: &Value) -> Vec<Event> {
     let mut out = Vec::new();
@@ -43,6 +46,7 @@ fn fuckMyLife(json: &Value) -> Vec<Event> {
             "text" => out.push(Event::Text(
                 obj["text"].as_str().unwrap().to_string(),
             )),
+            "rest" => out.push(Event::Rest),
             "repeatStart" => out.push(Event::RepeatStart),
             "repeatEnd" => out.push(Event::RepeatEnd),
             other => panic!("unknown event: {}", other),

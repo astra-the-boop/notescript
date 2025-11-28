@@ -1,6 +1,7 @@
 from music21 import converter, note, expressions, bar
 import xml.etree.ElementTree as et
 import re
+import json
 
 def stripNs(tag):
     return re.sub(r'\{.*}','', tag)
@@ -71,5 +72,5 @@ def parse(filename):
 
 
 
-    return output
+    return json.dumps(output)
 
