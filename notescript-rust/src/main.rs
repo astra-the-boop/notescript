@@ -110,7 +110,11 @@ impl Event{
     }
 }
 
-fn print(events:&[Event], i:usize, vars: &std::collections::HashMap<String, serde_json::Value>){
+fn print(
+    events: &[Event],
+    i: usize,
+    vars: &std::collections::HashMap<String, serde_json::Value>
+) {
     let current = &events[i];
 
     if !current.isPrint() || i == 0 {
@@ -119,25 +123,32 @@ fn print(events:&[Event], i:usize, vars: &std::collections::HashMap<String, serd
 
     let prev = &events[i-1];
 
-    if let Some(text) = prev.text(){
-        //number parsing shit idk
-        if let Ok(n) = text.trim().parse::<f64>(){
-            println!("{}",n);
+    if let Some(text) = prev.text() {
+        let trimmed = text.trim();
+
+        if let Ok(n) = trimmed.parse::<f64>() {
+            println!("{}", n);
             return;
         }
-        eprintln!("Error: Variable '{}' not defined", text.trim());
+
+        if let Some(val) = vars.get(trimmed) {
+            println!("{}", val);
+            return;
+        }
+
+        eprintln!("NameError: variable '{}' not found", trimmed);
         return;
     }
 
-    if i+1 < events.len(){
-        if let Some(t) = events[i+1].text(){
-            println!("{}",t);
+    if i + 1 < events.len() {
+        if let Some(t) = events[i+1].text() {
+            println!("{}", t);
             return;
         }
     }
-
-    
 }
+
+
 
 
 // main function
@@ -149,4 +160,9 @@ fn main() {
     let events = fuckMyLife(&raw);
 
     println!("{:#?}", events);
+    let mut vars = std::collections::HashMap::new();
+
+    for(i, _events) in events.iter().enumerate() {
+        print(&events,i,&vars);
+    }
 }
