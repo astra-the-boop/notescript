@@ -13,6 +13,11 @@ enum Event {
     RepeatEnd,
 }
 
+#[derive(Debug)]
+enum Op {
+    Add,
+}
+
 enum ValueType{
     str,
     bool,
@@ -70,6 +75,7 @@ fn fuckMyLife(json: &Value) -> Vec<Event> {
 
 
 
+
 // the actual good shit
 
 fn inferType(pitch: &str) -> ValueType {
@@ -86,6 +92,18 @@ fn inferType(pitch: &str) -> ValueType {
 //  printing
 
 impl Event{
+    fn asOp(&self) -> Option<Op> {
+        if let Event::Note { pitch, .. } = self {
+            match pitch.as_str() {
+                "D#" => Some(Op::Add),
+                // add more shits later
+                _ => None,
+            }
+        } else {
+            None
+        }
+    }
+
     fn pitch(&self)-> Option<&str>{
         if let Event::Note{pitch, ..} = self{
             Some(pitch.as_str())
