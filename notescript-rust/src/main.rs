@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
 use serde_json::Value;
@@ -28,6 +29,11 @@ enum ValueType{
 
 
 // shit that converts the thing from the python to the thing thing thing
+//also helpers
+
+fn tonedeafCunt(pitch: &str) -> &str {
+    pitch.trim_end_matches(|c: char| c.is_ascii_digit())
+}
 
 fn parser(path: &str) -> Value {
     Python::with_gil(|py| {
@@ -77,6 +83,81 @@ fn fuckMyLife(json: &Value) -> Vec<Event> {
 
 
 // the actual good shit
+
+fn varProcess(
+    events: &[Event],
+    i: usize,
+    vars: &mut HashMap<String, serde_json::Value>
+) -> Option<usize> {
+    if i+2 >= events.len() { return None; }
+
+    let name = match &events[i] {
+        Event::Text(s) => s.trim().to_string(),
+        _ => return None,
+    };
+
+    let is_assign = matches!(
+        events[i+1],
+        Event::Note { ref pitch, .. } if tonedeafCunt(pitch) == "D"
+    );
+
+    if !is_assign { return None; }
+
+    let rawVal = match &events[i+2] {
+        Event::Text(s) => s.trim().to_string(),
+        _ => return None,
+    };
+
+    let mut finalVal = serde_json::json!(rawVal);
+    let mut nextI = i + 3;
+
+    // meth
+    if nextI < events.len() {
+        if let Event::Note { pitch, .. } = &events[nextI] {
+            if tonedeafCunt(pitch) == "D#" {
+                if nextI + 1 < events.len() {
+                    if let Event::Text(rhs) = &events[nextI+1] {
+                        let lhs = vars.get(&rawVal)
+                            .and_then(|v| v.as_f64())
+                            .unwrap_or_else(|| rawVal.parse::<f64>().unwrap_or(0.0));
+
+                        let rhs_num = rhs.parse::<f64>().unwrap_or(0.0);
+
+                        finalVal = serde_json::json!(lhs + rhs_num);
+                        nextI += 2;
+                    }
+                }
+            }
+        }
+    }
+
+    // type cotnversion
+    if nextI < events.len() {
+        if let Event::Note { pitch, .. } = &events[nextI] {
+            match tonedeafCunt(pitch) {
+                "A" => {}
+                "B" => {
+                    if let Ok(n) = finalVal.as_str().unwrap().parse::<f64>() {
+                        finalVal = serde_json::json!(n);
+                    }
+                }
+                "B#" => {
+                    if let Ok(n) = finalVal.as_str().unwrap().parse::<i64>() {
+                        finalVal = serde_json::json!(n);
+                    }
+                }
+                _ => {}
+            }
+        }
+    }
+
+    vars.insert(name.clone(), finalVal);
+
+    println!("VAR SET: {:?} = {:?}", name, vars[&name]);
+
+    Some(nextI)
+}
+
 
 fn inferType(pitch: &str) -> ValueType {
     match pitch {
@@ -180,7 +261,16 @@ fn main() {
     println!("{:#?}", events);
     let mut vars = std::collections::HashMap::new();
 
-    for(i, _events) in events.iter().enumerate() {
-        print(&events,i,&vars);
+    let mut i = 0;
+
+    while i < events.len() {
+        if let Some(nextI) = varProcess(&events, i, &mut vars) {
+            i = nextI;
+            continue;
+        }
+
+        print(&events, i, &vars);
+
+        i += 1;
     }
 }
