@@ -9,8 +9,24 @@ install notescript using cargo
 ```bash
 cargo install --git https://github.com/astra-the-boop/notescript.git --branch rust-rewrite
 ```
+after which; you'll get a command something like
 
-then run the installed binary with a musicxml file as an argument
+```bash
+warning: be sure to add `/home/astra/.cargo/bin` to your PATH to be able to run the installed binaries
+```
+
+the `/home/astra/.cargo/bin` part can be different for your device; here we'll use <address> as a placeholder
+
+then
+```bash
+export PATH="$PATH:<address>"
+```
+
+after which, you can run the interpreter anywhere!
+just do
+```bash
+notescript-rust <filename>.musicxml
+```
 
 ## Documentation:
 ### Types
