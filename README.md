@@ -2,15 +2,15 @@
 
 this is an esolang that uses music scores in the musicxml (uncompressed) format to do the thingy
 
-## currently only tested on macOS
-
 ## How to use:
-download release and then run this in the directory
+
+install notescript using cargo
 
 ```bash
-chmod +x notescript
-./notescript "<filename>.musicxml"
+cargo install --git https://github.com/astra-the-boop/notescript.git --branch rust-rewrite
 ```
+
+then run the installed binary with a musicxml file as an argument
 
 ## Documentation:
 ### Types

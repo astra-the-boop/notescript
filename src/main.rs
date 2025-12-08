@@ -9,9 +9,9 @@
 use clap::Parser;
 use std::fs;
 use std::collections::HashMap;
-use pyo3::prelude::*;
-use pyo3::types::PyModule;
 use serde_json::Value;
+
+mod parser;
 
 // enums and bullshit
 
@@ -51,20 +51,8 @@ fn tonedeafCunt(pitch: &str) -> &str {
 }
 
 fn parser(path: &str) -> Value {
-    Python::with_gil(|py| {
-        let src = include_str!("parser.py");
-        let module = PyModule::from_code(py, src, "parser.py", "parser")
-            .expect("failed to load parser.py");
-
-        let raw_json: String = module
-            .getattr("parse").unwrap()
-            .call1((path,))
-            .unwrap()
-            .extract()
-            .unwrap();
-
-        serde_json::from_str(&raw_json).unwrap()
-    })
+    let events = parser::parse(path).expect("Failed to parse MusicXML file");
+    serde_json::to_value(events).expect("Failed to convert to JSON")
 }
 
 
@@ -294,28 +282,32 @@ fn print(
 ) {
     let current = &events[i];
 
-    if !current.isPrint() || i == 0 {
+    if !current.isPrint() {
         return;
     }
 
-    let prev = &events[i-1];
+    // Check previous element if not at start
+    if i > 0 {
+        let prev = &events[i-1];
 
-    if let Some(text) = prev.text() {
-        let trimmed = text.trim();
+        if let Some(text) = prev.text() {
+            let trimmed = text.trim();
 
-        if let Ok(n) = trimmed.parse::<f64>() {
-            println!("{}", n);
-            return;
+            if let Ok(n) = trimmed.parse::<f64>() {
+                println!("{}", n);
+                return;
+            }
+
+            if let Some(val) = vars.get(trimmed) {
+                println!("{}", val);
+                return;
+            }
+
+            panic!("NameError: variable '{}' not found", trimmed);
         }
-
-        if let Some(val) = vars.get(trimmed) {
-            println!("{}", val);
-            return;
-        }
-
-        panic!("NameError: variable '{}' not found", trimmed);
     }
 
+    // Check next element
     if i + 1 < events.len() {
         if let Some(t) = events[i+1].text() {
             println!("{}", t);
@@ -330,8 +322,6 @@ fn print(
 // main function
 
 fn main() {
-    pyo3::prepare_freethreaded_python();
-
     let args = Cli::parse();
 
     let raw = parser(&args.filename);
