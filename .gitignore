@@ -1,0 +1,13 @@
+target/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+*.dylib
+*.dll
+*.exe
+*.log
+.vscode/
+.idea/
+*egg-info/
