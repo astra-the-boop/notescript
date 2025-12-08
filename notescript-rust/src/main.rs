@@ -1,3 +1,11 @@
+//fuck you rust
+#![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
+#![allow(dead_code)]
+#![allow(unused)]
+#![allow(unreachable_code)]
+#![allow(deprecated)]
+
 use std::collections::HashMap;
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
@@ -87,76 +95,139 @@ fn fuckMyLife(json: &Value) -> Vec<Event> {
 fn varProcess(
     events: &[Event],
     i: usize,
-    vars: &mut HashMap<String, serde_json::Value>
+    vars: &mut HashMap<String, serde_json::Value>,
 ) -> Option<usize> {
-    if i+2 >= events.len() { return None; }
+    if i + 3 >= events.len() {
+        return None;
+    }
 
     let name = match &events[i] {
         Event::Text(s) => s.trim().to_string(),
         _ => return None,
     };
 
-    let is_assign = matches!(
-        events[i+1],
-        Event::Note { ref pitch, .. } if tonedeafCunt(pitch) == "D"
-    );
-
-    if !is_assign { return None; }
-
-    let rawVal = match &events[i+2] {
-        Event::Text(s) => s.trim().to_string(),
+    let assign_note = match &events[i + 1] {
+        Event::Note { pitch, .. } => tonedeafCunt(pitch),
         _ => return None,
     };
+    if assign_note != "D" && assign_note != "D#" {
+        return None;
+    }
 
-    let mut finalVal = serde_json::json!(rawVal);
-    let mut nextI = i + 3;
+    let rhs_opt = match &events[i + 2] {
+        Event::Text(s) => Some(s.trim().to_string()),
+        _ => {
+            eprintln!("SyntaxError: expected staff text at index {}", i + 2);
+            return None;
+        }
+    };
 
-    // meth
-    if nextI < events.len() {
-        if let Event::Note { pitch, .. } = &events[nextI] {
-            if tonedeafCunt(pitch) == "D#" {
-                if nextI + 1 < events.len() {
-                    if let Event::Text(rhs) = &events[nextI+1] {
-                        let lhs = vars.get(&rawVal)
-                            .and_then(|v| v.as_f64())
-                            .unwrap_or_else(|| rawVal.parse::<f64>().unwrap_or(0.0));
+    let type_pitch = match &events[i + 3] {
+        Event::Note { pitch, .. } => tonedeafCunt(pitch),
+        _ => {
+            panic!("SyntaxError: expected type note at index {}", i + 3);
+        }
+    };
 
-                        let rhs_num = rhs.parse::<f64>().unwrap_or(0.0);
+    if type_pitch == "D" {
+        panic!("TypeError: 'D' is not a valid type note for '{}'", name);
+    }
 
-                        finalVal = serde_json::json!(lhs + rhs_num);
-                        nextI += 2;
-                    }
-                }
-            }
+    match type_pitch {
+        "A" | "B" | "B#" | "B##" | "B--" | "D#" => {}
+        other => {
+            panic!("TypeError: invalid type note '{}' for '{}'", other, name);
         }
     }
 
-    // type cotnversion
-    if nextI < events.len() {
-        if let Event::Note { pitch, .. } = &events[nextI] {
-            match tonedeafCunt(pitch) {
-                "A" => {}
-                "B" => {
-                    if let Ok(n) = finalVal.as_str().unwrap().parse::<f64>() {
-                        finalVal = serde_json::json!(n);
-                    }
+    let deref = assign_note == "D#" || type_pitch == "D#";
+
+    let resolved: serde_json::Value = if deref {
+        match rhs_opt {
+            Some(ref token) => match vars.get(token) {
+                Some(v) => v.clone(),
+                None => {
+                    panic!("NameError: variable '{}' not found", token);
+                    serde_json::Value::Null
                 }
-                "B#" => {
-                    if let Ok(n) = finalVal.as_str().unwrap().parse::<i64>() {
-                        finalVal = serde_json::json!(n);
-                    }
-                }
-                _ => {}
+            },
+            None => {
+                eprintln!("NameError: dereference requested but no staff text token for '{}'", name);
+                serde_json::Value::Null
             }
         }
-    }
+    } else {
+        match rhs_opt {
+            Some(ref token) => serde_json::json!(token.clone()),
+            None => serde_json::Value::Null,
+        }
+    };
 
-    vars.insert(name.clone(), finalVal);
+    let final_val = match type_pitch {
+        "A" => {
+            if let Some(s) = resolved.as_str() {
+                serde_json::json!(s.to_string())
+            } else {
+                serde_json::json!(resolved.to_string())
+            }
+        }
 
-    println!("VAR SET: {:?} = {:?}", name, vars[&name]);
+        "B" => {
+            // float
+            if resolved.is_number() {
+                if let Some(f) = resolved.as_f64() { serde_json::json!(f) } else { serde_json::json!(null) }
+            } else if let Some(s) = resolved.as_str() {
+                match s.parse::<f64>() {
+                    Ok(f) => serde_json::json!(f),
+                    Err(_) => {
+                        panic!("TypeError: cannot parse '{}' as float for '{}'", s, name);
+                        serde_json::json!(null)
+                    }
+                }
+            } else {
+                panic!("TypeError: cannot convert {:?} to float for '{}'", resolved, name);
+                serde_json::json!(null)
+            }
+        }
 
-    Some(nextI)
+        "B#" => {
+            if resolved.is_i64() || resolved.is_u64() {
+                if let Some(i) = resolved.as_i64() { serde_json::json!(i) }
+                else if let Some(f) = resolved.as_f64() { serde_json::json!(f.floor() as i64) }
+                else { serde_json::json!(null) }
+            } else if let Some(f) = resolved.as_f64() {
+                serde_json::json!(f.floor() as i64)
+            } else if let Some(s) = resolved.as_str() {
+                match s.parse::<f64>() {
+                    Ok(f) => serde_json::json!(f.floor() as i64),
+                    Err(_) => {
+                        panic!("TypeError: cannot parse '{}' as int (via floor) for '{}'", s, name);
+                        serde_json::json!(null)
+                    }
+                }
+            } else {
+                panic!("TypeError: cannot convert {:?} to int for '{}'", resolved, name);
+            }
+        }
+
+        "B##" => serde_json::json!(true),
+
+        "B--" => serde_json::json!(false),
+
+        "D#" => resolved.clone(),
+
+        _ => {
+            panic!("TypeError: unknown type '{}' for '{}'", type_pitch, name);
+        }
+    };
+
+    vars.insert(name.clone(), final_val.clone());
+    // println!("VAR SET: {:?} = {:?}", name, final_val);
+    //debug bs
+
+    Some(i + 4)
 }
+
 
 
 fn inferType(pitch: &str) -> ValueType {
@@ -235,8 +306,7 @@ fn print(
             return;
         }
 
-        eprintln!("NameError: variable '{}' not found", trimmed);
-        return;
+        panic!("NameError: variable '{}' not found", trimmed);
     }
 
     if i + 1 < events.len() {
@@ -258,7 +328,8 @@ fn main() {
     let raw = parser("demo.musicxml");
     let events = fuckMyLife(&raw);
 
-    println!("{:#?}", events);
+    // println!("{:#?}", events);
+    //debug shit
     let mut vars = std::collections::HashMap::new();
 
     let mut i = 0;
