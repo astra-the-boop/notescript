@@ -6,6 +6,8 @@
 #![allow(unreachable_code)]
 #![allow(deprecated)]
 
+use clap::Parser;
+use std::fs;
 use std::collections::HashMap;
 use pyo3::prelude::*;
 use pyo3::types::PyModule;
@@ -35,6 +37,11 @@ enum ValueType{
     other
 }
 
+#[derive(Parser)]
+#[command(name = "notescript", version, about = "she note on my script til i SyntaxError")]
+struct Cli {
+    filename: String,
+}
 
 // shit that converts the thing from the python to the thing thing thing
 //also helpers
@@ -325,23 +332,21 @@ fn print(
 fn main() {
     pyo3::prepare_freethreaded_python();
 
-    let raw = parser("demo.musicxml");
+    let args = Cli::parse();
+
+    let raw = parser(&args.filename);
     let events = fuckMyLife(&raw);
 
-    // println!("{:#?}", events);
-    //debug shit
-    let mut vars = std::collections::HashMap::new();
-
+    let mut vars = HashMap::new();
     let mut i = 0;
 
     while i < events.len() {
-        if let Some(nextI) = varProcess(&events, i, &mut vars) {
-            i = nextI;
+        if let Some(next_i) = varProcess(&events, i, &mut vars) {
+            i = next_i;
             continue;
         }
 
         print(&events, i, &vars);
-
         i += 1;
     }
 }
