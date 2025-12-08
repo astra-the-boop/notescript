@@ -48,7 +48,6 @@ pub fn parse(filename: &str) -> Result<Vec<ParsedEvent>, Box<dyn std::error::Err
     let file = File::open(filename)?;
     let buf_reader = BufReader::new(file);
     let mut reader = Reader::from_reader(buf_reader);
-    reader.trim_text(true);
 
     let mut output = Vec::new();
     let mut buf = Vec::new();
