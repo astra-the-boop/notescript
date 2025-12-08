@@ -56,3 +56,6 @@ Currently does not work
 - If you want to reference another variable within a variable, use D# with the variable's name
 
 > If you want to try it out, run the interpreter using the included `demo.musicxml` file. If you want to see what's happening, open the file in a program such as MuseScore and it should include comments on the bottom staff.
+>
+
+<img src="Screenshot%202025-12-09%20at%2003.17.53.png">
